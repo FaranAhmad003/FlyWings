@@ -1,0 +1,38 @@
+.image-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.image-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px 10px 0 0;
+  transition: filter 0.3s ease;
+}
+
+.image-container:hover img {
+  filter: brightness(70%);
+}
+
+.overlay {
+  background: rgb(49, 47, 47);
+  color: white;
+  width: 100%;
+  transition: 0.5s ease;
+  font-size: 20px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 0 0 5px 5px;
+}
+
+.image-container a {
+  color: white;
+  text-decoration: none;
+}
+
+.image-container:hover .overlay {
+  font-weight: 700;
+  background: rgb(49, 47, 36);
+}
