@@ -1290,3 +1290,4 @@ app.delete("/api/deleteTicket", (req, res) => {
 server.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
+// Commit update: Changes for commit
