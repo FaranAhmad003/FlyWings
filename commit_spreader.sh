@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start date (YYYY-MM-DD) and number of days to spread commits
-start_day="2025-03-25"
+start_day="2025-05-1"
 total_days=10
 
 # Daily time window
@@ -25,7 +25,7 @@ files=$(find . -type f \
   -not -name "$(basename "$0")" | sort)
 
 total_files=$(echo "$files" | wc -l)
-echo " ~M Foun$total_fileses files. Committin& & pushing one by one..."
+echo " ~M Found $total_files files. Committing & pushing one by one..."
 
 i=0
 for file in $files; do
@@ -44,17 +44,21 @@ for file in $files; do
     hour=$((day_start_hour + seconds_into_day / 3600))
     minute=$(((seconds_into_day % 3600) / 60))
     second=$((seconds_into_day % 60))
-commit_time=$(printf "%sT%02d:%02d:%02d" "$commit_date" "$hour" "$minute" "$second")
+    commit_time=$(printf "%sT%02d:%02d:%02d" "$commit_date" "$hour" "$minute" "$second")
 
+    # Add a small modification (for example, adding a comment to the file)
+    echo "// Commit update: Changes for commit" >> "$file"
+
+    # Stage and commit the change
     git add "$file"
     GIT_AUTHOR_DATE="$commit_time" GIT_COMMITTER_DATE="$commit_time" \
-    git commit --allow-empty -m "Add $file"
+    git commit -m "Add changes to $file"
 
     echo "✅ Committed $file at $commit_time"
 
     # Push after each commit
     git push origin "$branch_name"
-    echo " ~@ Pushed commiforo$filele"
+    echo " ~@ Pushed commit for $file"
 
     # Optional delay to space out push times
     echo "⏳ Sleeping $sleep_duration seconds..."
@@ -63,4 +67,4 @@ commit_time=$(printf "%sT%02d:%02d:%02d" "$commit_date" "$hour" "$minute" "$seco
     ((i++))
 done
 
-echo " ~I Done$i$i files committed and pushed separately."
+echo " ~I Done $i files committed and pushed separately."
